@@ -22,6 +22,6 @@ public class NewPasswordDTO {
 
     @NotBlank(message = "Senha não pode estar vazia")
     @Size(min = 6, max = 15, message = "A senha deve conter de 6 a 15 caracteres")
-    private String passoword;
+    private String password;
 
 }

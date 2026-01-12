@@ -84,6 +84,7 @@ public class AuthService {
                     .body(new ApiMessage(HttpStatus.BAD_REQUEST, "E-mail não pertence ao usuário"));
 
         addCodeForgotPassword(login);
+        repository.save(login);
         sendMail(login);
 
         return ResponseEntity.status(HttpStatus.OK)
@@ -101,13 +102,16 @@ public class AuthService {
         Date now = new Date();
 
         final Login login = loginOptional.get();
+
+
+
         if(Objects.isNull(login.getCode()) || Objects.isNull(login.getExpirationDate()) || !dto.getCode().equals(login.getCode()) || now.after(login.getExpirationDate()))
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new ApiMessage(HttpStatus.BAD_REQUEST, "Código inválido"));
 
         login.setExpirationDate(null);
         login.setCode(null);
-        login.setPassword(passwordEncoder.encode(dto.getPassoword()));
+        login.setPassword(passwordEncoder.encode(dto.getPassword()));
 
         repository.save(login);
 

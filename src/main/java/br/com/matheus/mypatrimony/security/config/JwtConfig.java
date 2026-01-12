@@ -48,7 +48,7 @@ public class JwtConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/signUp").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/forgotPassword").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/newPassword").permitAll()
+                .antMatchers(HttpMethod.PUT, "/api/newPassword").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JwtAuthenticateFilter(authenticationManager(), configProperties))
